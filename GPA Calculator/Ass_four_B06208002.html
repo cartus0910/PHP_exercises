@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
+    <link rel="dns-prefetch" href="https://code.jquery.com/">
+	<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+	<link rel="dns-prefetch" href="https://s.w.org/">
+	<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
+	<script src="https://cdn.jsdelivr.net/npm/table-to-json@0.13.0/lib/jquery.tabletojson.min.js" integrity="sha256-AqDz23QC5g2yyhRaZcEGhMMZwQnp8fC6sCZpf+e7pnw=" crossorigin="anonymous"></script>
+	<style>
+    .row{
+		 margin-bottom: 20px;
+    }
+
+	.circle-box {
+	  border: 3px;
+	  border-style: solid;
+	  border-color: #f2f2f2;
+	  margin-top: 50px;
+	  margin-left: 20px;
+	  margin-right: 20px;
+	  padding-bottom: 100px;
+	  padding-left: 20px;
+	  padding-right: 20px;
+	  height: 540px;
+	}
+	
+	.year-box {
+	  weight: 80%
+	  border: 3px;
+	  border-style: solid;
+	  border-color: #dcdcdc;
+	  margin-top: 30px;
+	  margin-left: 10px;
+	  margin-right: 10px;
+	  padding-bottom: 30px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	  height: 240px
+	}
+
+	.circle-content {
+	  padding-top: 10px;
+	  width: 32%;
+	  text-align: center;
+	  display: inline-block;
+	  vertical-align: top;
+	}
+
+	.circle {
+	  display: inline-block;
+	  height: 150px;
+	  width: 150px;
+	  line-height: 150px;
+	  border-radius: 50%;
+	  border: 4px solid #333;
+	  background: #ff9022;
+	  color: #f2f2f2;
+	  font-size: 50px;
+	  text-align: center;
+	}
+
+	.circle-content p {
+	  font-size: 18px;
+	  padding-top: 10px;
+	  color: #333;
+	}
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <!------------------------------------------------------>
+      <div style="text-align:center;">
+        <h1>GPA Calculator</h1>
+      </div>
+      <!------------------------------------------------------>
+      <div class='row'>
+        <div class='col-12'>
+			<span align="left"><button type="button" class="btn" id='del-row'>Delete Row</button></span>
+			<button class='btn btn-info float-right' id='uploadBtn' style='margin-left:10px;'>Upload</button>
+			<button class='btn btn-info float-right' id='importBtn' style='margin-left:10px;'>Import</button>
+			<button class='btn btn-info float-right' id='addBtn' style='margin-left:10px;'>Add</button>
+		</div>
+      </div>
+      <!-------------------------------------------------------------------------->
+      <div class='row'>
+        <table class='table' id='table1'>
+          <tr><th></th><th>Semester</th><th>Course Name</th><th>Credits</th><th>Letter Grades</th></tr>
+        </table>
+      </div>
+ 
+<!-------------------------------------------------------------------------->
+		<div class="year-box" id='1st-year' style='display: none;'>
+			<div class="circle-content">
+				<span class="circle" id='sem1'></span>
+				<p><b>Freshman 1st Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='sem2'></span>
+				<p><b>Freshman 2nd Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='year1'></span>
+				<p><b>Freshman Year</b></p>
+			</div>
+		</div>
+		<div class="year-box" id='2nd-year' style='display: none;'>
+			<div class="circle-content">
+				<span class="circle" id='sem3'></span>
+				<p><b>Sophomore 1st Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='sem4'></span>
+				<p><b>Sophomore 2nd Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='year2'></span>
+				<p><b>Sophomore Year</b></p>
+		</div>
+		</div>
+		<div class="year-box" id='3rd-year' style='display: none;'>
+			<div class="circle-content">
+				<span class="circle" id='sem5'></span>
+				<p><b>Junior 1st Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='sem6'></span>
+				<p><b>Junior 2nd Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='year3'></span>
+				<p><b>Junior Year</b></p>
+		</div>
+		</div>
+		<div class="year-box" id='4th-year' style='display: none;'>
+			<div class="circle-content">
+				<span class="circle" id='sem7'></span>
+				<p><b>Senior 1st Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='sem8'></span>
+				<p><b>Senior 2nd Semester</b></p>
+			</div>
+			<div class="circle-content">
+				<span class="circle" id='year4'></span>
+				<p><b>Senior Year</b></p>
+		</div>
+		</div>
+
+      <!-------------------------------------------------------------------------->
+	<form class="was-validated">
+      <div class='modal fade' id='dialog1' tabindex='-1' role='dialog' aria-labelledby='dialog1-title' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered' role='document'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <h2 class='modal-title' id='dialog1-title'>Course Information</h2>
+              <button type='button' class='close' data-dismiss='modal' aria-label='Close'></button>
+            </div>
+            
+            <div class='modal-body'>
+                <div class="form-group">
+  				<label>Semester</label>
+    			<select class="custom-select" id='semester' required>
+      				<option value="">Choose the semester</option>
+                    <option value="1">Freshman 1st Semester</option>
+                    <option value="2">Freshman 2nd Semester</option>
+                    <option value="3">Sophomore 1st Semester</option>
+                    <option value="4">Sophomore 2nd Semester</option>
+                    <option value="5">Junior 1st Semester</option>
+                    <option value="6">Junior 2nd Semester</option>
+                    <option value="7">Senior 1st Semester</option>
+                    <option value="8">Senior 2nd Semester</option>
+    			</select>
+    		  <div class="invalid-feedback">You must choose the semester.</div>
+  			  </div>
+			  
+			  <div>
+  				<label for="coursename">Course Name</label>
+				<input type="text" class="form-control" id='name' required>
+    		  <div class="invalid-feedback">You must enter the name of the course.</div>
+  			  </div>
+			  
+			  <div>
+  				<label for="credits">Credits</label>
+				<input type="number" placeholder="0.0" step="0.5" min="0.5" max="5" class="form-control" id='credits' required>
+    		  <div class="invalid-feedback">The credits must be between 0 and 5 with 0.5 steps.</div>
+  			  </div>
+			  
+			  <div>
+  				<label for="grades">Letter Grades</label>
+    			<select class="custom-select" id='grades' required>
+      				<option value="">Choose Your Grades</option>
+                    <option value="4.30">A+</option>
+                    <option value="4.00">A</option>
+                    <option value="3.70">A-</option>
+                    <option value="3.30">B+</option>
+                    <option value="3.00">B</option>
+                    <option value="2.70">B-</option>
+                    <option value="2.30">C+</option>
+                    <option value="2.00">C</option>
+					<option value="1.70">C-</option>
+					<option value="0.00">F</option>
+					<option value="0.00">X</option>
+    			</select>
+    		  <div class="invalid-feedback">You must choose your grades.</div>
+  			  </div>
+            </div>
+            
+            
+            <div class='modal-footer'>
+              <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+              <button type='sumbmit' class='btn btn-primary' id='saveBtn'>Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+	</form>
+      <!------------------------------------------------------>
+
+      <!------------------------------------------------------>
+      <script>
+	  function deleteRow(btn) {
+		  var row = btn.parentNode.parentNode;
+		  row.parentNode.removeChild(row);
+		};
+		
+	  function gpacalculate(){
+		  var grades_dict={
+		  "A+":4.30, "A":4.00, "A-":3.70, "B+":3.30, "B":3.00, "B-":2.70,
+		  "C+":2.30, "C":2.00, "C-":1.70, "F":0.00, "X":0.00
+		  };
+		  {
+			var credits_sem1=0;
+			var credits_sem2=0;
+			var credits_sem3=0;
+			var credits_sem4=0;
+			var credits_sem5=0;
+			var credits_sem6=0;
+			var credits_sem7=0;
+			var credits_sem8=0;
+			var credits_total=0;
+			var grades_sem1=0;
+			var grades_sem2=0;
+			var grades_sem3=0;
+			var grades_sem4=0;
+			var grades_sem5=0;
+			var grades_sem6=0;
+			var grades_sem7=0;
+			var grades_sem8=0;
+			var grades_total=0;
+			 $('#table1 tr').each(function(){
+				var grades_num_total=grades_dict[$(this).find('td:nth-child(5)').text()];
+				var weight_total=parseFloat($(this).find('td:nth-child(4)').text());
+				credits_total+=weight_total;
+				grades_total+=grades_num_total*weight_total;
+				
+				if($(this).find('td:nth-child(2)').text()=="Freshman 1st Semester"){
+					var grades_num1=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem1=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem1+=weight_sem1;
+					grades_sem1+=grades_num1*weight_sem1;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Freshman 2nd Semester"){
+					var grades_num2=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem2=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem2+=weight_sem2;
+					grades_sem2+=grades_num2*weight_sem2;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Sophomore 1st Semester"){
+					var grades_num3=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem3=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem3+=weight_sem3;
+					grades_sem3+=grades_num3*weight_sem3;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Sophomore 2nd Semester"){
+					var grades_num4=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem4=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem4+=weight_sem4;
+					grades_sem4+=grades_num4*weight_sem4;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Junior 1st Semester"){
+					var grades_num5=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem5=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem5+=weight_sem5;
+					grades_sem5+=grades_num5*weight_sem5;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Junior 2nd Semester"){
+					var grades_num6=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem6=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem6+=weight_sem6;
+					grades_sem6+=grades_num6*weight_sem6;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Senior 1st Semester"){
+					var grades_num7=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem7=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem7+=weight_sem7;
+					grades_sem7+=grades_num7*weight_sem7;
+				}
+				else if($(this).find('td:nth-child(2)').text()=="Senior 2nd Semester"){
+					var grades_num8=grades_dict[$(this).find('td:nth-child(5)').text()];
+					var weight_sem8=parseFloat($(this).find('td:nth-child(4)').text());
+					credits_sem8+=weight_sem8;
+					grades_sem8+=grades_num8*weight_sem8;
+				}	
+			 });
+			  var gpa_sem1=(grades_sem1/credits_sem1).toFixed(2);
+			  var gpa_sem2=(grades_sem2/credits_sem2).toFixed(2);
+			  var gpa_year1=((grades_sem1+grades_sem2)/(credits_sem1+credits_sem2)).toFixed(2);
+			  var gpa_sem3=(grades_sem3/credits_sem3).toFixed(2);
+			  var gpa_sem4=(grades_sem4/credits_sem4).toFixed(2);
+			  var gpa_year2=((grades_sem3+grades_sem4)/(credits_sem3+credits_sem4)).toFixed(2);
+			  var gpa_sem5=(grades_sem5/credits_sem5).toFixed(2);
+			  var gpa_sem6=(grades_sem6/credits_sem6).toFixed(2);
+			  var gpa_year3=((grades_sem5+grades_sem6)/(credits_sem5+credits_sem6)).toFixed(2);
+			  var gpa_sem7=(grades_sem7/credits_sem7).toFixed(2);
+			  var gpa_sem8=(grades_sem8/credits_sem8).toFixed(2);
+			  var gpa_year4=((grades_sem7+grades_sem8)/(credits_sem7+credits_sem8)).toFixed(2);
+			  var gpa_total=(grades_total/credits_total).toFixed(2);
+		  }
+		  var gpa_all=[gpa_sem1,gpa_sem2,gpa_sem3,gpa_sem4,gpa_sem5,gpa_sem6,gpa_sem7,gpa_sem8,gpa_year1,gpa_year2,gpa_year3,gpa_year4,gpa_total];
+		  var gpa_final=gpa_all.map(gpa_all =>{ return isNaN(gpa_all) ? 0 : gpa_all});
+
+		  return gpa_final;
+	  };
+
+        $(function(){
+		  var sem_dict={
+			"Freshman 1st Semester": 1, "Freshman 2nd Semester": 2,
+			"Sophomore 1st Semester": 3, "Sophomore 2nd Semester": 4,
+			"Junior 1st Semester":5, "Junior 2nd Semester":6,
+			"Senior 1st Semester":7, "Senior 2nd Semester":8
+			};
+		  var grades_dict={
+			"A+":4.30, "A":4.00, "A-":3.70, "B+":3.30, "B":3.00, "B-":2.70,
+			"C+":2.30, "C":2.00, "C-":1.70, "F":0.00, "X":0.00
+		  };
+		  $("form").submit(function (e) {
+				e.preventDefault();
+				//get values
+				var semester=$('#semester option:selected').text();
+				var semester_val=parseFloat($('#semester').val());
+				var name=$('#name').val();
+				var credits=parseFloat($('#credits').val());
+				var grades=$('#grades option:selected').text();
+				var grades_val=parseFloat($('#grades').val());
+
+			
+				{ 
+				//generate a tr
+				var tr=$('<tr />').append($('<td><input type="checkbox" name="record"></td>'))
+								  .append($('<td />').html(semester))
+								  .append($('<td />').html(name))
+								  .append($('<td />').html(credits))
+								  .append($('<td />').html(grades));
+									
+			
+				  //check time 
+				  var inserted=false;
+				  $('#table1 tr').each(function(){
+					if (!inserted){
+					  var original=$(this).find('td:nth-child(2)').text();
+					  var order=sem_dict[original];
+					  if(semester_val<order){      // order by semester, new<old
+						$(this).find('td:nth-child(2)').parents('tr').before($(tr));
+						inserted=true;
+					  }}
+				  });
+				  //old data 
+				  if(!inserted) $('#table1').append( $(tr) );
+				}
+			
+				//hide dialog
+				$('#dialog1').modal('hide');
+			
+				//clear input/textarea
+				$('#semester').val('');
+				$('#name').val('');
+				$('#credits').val('');
+				$('#grades').val('');
+				
+				//add gpa
+				$('#sem1').html(gpacalculate()[0]);
+				$('#sem2').html(gpacalculate()[1]);
+				$('#sem3').html(gpacalculate()[2]);
+				$('#sem4').html(gpacalculate()[3]);
+				$('#sem5').html(gpacalculate()[4]);
+				$('#sem6').html(gpacalculate()[5]);
+				$('#sem7').html(gpacalculate()[6]);
+				$('#sem8').html(gpacalculate()[7]);
+				$('#year1').html(gpacalculate()[8]);
+				$('#year2').html(gpacalculate()[9]);
+				$('#year3').html(gpacalculate()[10]);
+				$('#year4').html(gpacalculate()[11]);
+				$('#total').html(gpacalculate()[12]);
+				
+				//show the circle
+				if (gpacalculate()[8] != 0){
+					$('#1st-year').show();
+				};
+				if (gpacalculate()[9] != 0){
+					$('#2nd-year').show();
+				};
+				if (gpacalculate()[10] != 0){
+					$('#3rd-year').show();
+				};
+				if (gpacalculate()[11] != 0){
+					$('#4th-year').show();
+				};
+			});
+		  
+          $('#addBtn').click(function(){
+            $('#dialog1').modal('show');
+          });
+		  
+		  $('#del-row').click(function(){
+
+		  });
+		  
+		  $(document).ready(function(){
+			// Find and remove selected table rows
+			$("#del-row").click(function(){
+				$("table tbody").find('input[name="record"]').each(function(){
+					if($(this).is(":checked")){
+						$(this).parents("tr").remove();
+					//hide the circle
+					if (gpacalculate()[8] == 0){
+						$('#1st-year').hide();
+					};
+					if (gpacalculate()[9] == 0){
+						$('#2nd-year').hide();
+					};
+					if (gpacalculate()[10] == 0){
+						$('#3rd-year').hide();
+					};
+					if (gpacalculate()[11] == 0){
+						$('#4th-year').hide();
+					};
+					}
+				});  
+				});
+			});
+		  		 
+
+		  $('#uploadBtn').click(function() {
+			var table = $('#table1').tableToJSON();
+			var str_json = JSON.stringify(table);
+			alert('Upload current data to the server successfully!');
+			$.ajax({
+				url: "download_json.php",
+				data: {'mydata' : table},
+				type: "post",
+				dataType : "json",
+				success: function (result){
+				console.log('success',result);
+				},
+				});
+		  });
+		  
+		  $('#importBtn').click(function() {
+
+			$.ajax({
+				url: "upload_json.php",
+				method: "get",
+				dataType : "json",
+				success: function (result){
+					alert('Import the data uploaded last time successfully!');
+					var i = 0;
+					$.each(result, function() {
+						var tr2=$('<tr />').append($('<td><input type="checkbox" name="record"></td>'))
+										   .append($('<td />').html(result[i]["Semester"]))
+										   .append($('<td />').html(result[i]["Course Name"]))
+										   .append($('<td />').html(result[i]["Credits"]))
+									   	   .append($('<td />').html(result[i]["Letter Grades"]));
+						{
+						  //check time 
+						  var inserted=false;
+						  var newone=sem_dict[result[i]["Semester"]];
+						  $('#table1 tr').each(function(){
+							if (!inserted){
+							  var original=$(this).find('td:nth-child(2)').text();
+							  var order=sem_dict[original];
+							  if(newone<order){      // order by semester, new<old
+								$(this).find('td:nth-child(2)').parents('tr').before($(tr2));
+								inserted=true;
+							  }}
+						  });
+						  //old data 
+						  if(!inserted) $('#table1').append( $(tr2) );
+						}
+					  i++;
+					  });
+					
+					//add gpa
+					$('#sem1').html(gpacalculate()[0]);
+					$('#sem2').html(gpacalculate()[1]);
+					$('#sem3').html(gpacalculate()[2]);
+					$('#sem4').html(gpacalculate()[3]);
+					$('#sem5').html(gpacalculate()[4]);
+					$('#sem6').html(gpacalculate()[5]);
+					$('#sem7').html(gpacalculate()[6]);
+					$('#sem8').html(gpacalculate()[7]);
+					$('#year1').html(gpacalculate()[8]);
+					$('#year2').html(gpacalculate()[9]);
+					$('#year3').html(gpacalculate()[10]);
+					$('#year4').html(gpacalculate()[11]);
+					$('#total').html(gpacalculate()[12]);
+					
+					//show the circle
+					if (gpacalculate()[8] != 0){
+						$('#1st-year').show();
+					};
+					if (gpacalculate()[9] != 0){
+						$('#2nd-year').show();
+					};
+					if (gpacalculate()[10] != 0){
+						$('#3rd-year').show();
+					};
+					if (gpacalculate()[11] != 0){
+						$('#4th-year').show();
+					};
+				}
+				});
+		  });
+		  
+        });
+	
+    </script>
+  </div>
+  </body>
+</html>
